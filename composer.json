@@ -1,0 +1,54 @@
+{
+    "name": "desdim/media-upload",
+    "description": "Upload images and videos to storage",
+    "keywords": [
+		"Laravel",
+        "media upload"
+    ],
+    "homepage": "https://github.com/DesimirDimitrov/media-upload",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Desimir Dimitrov",
+            "email": "desko007@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DesDim\\MediaUpload\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DesDim\\MediaUpload\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DesDim\\MediaUpload\\MediaUploadServiceProvider"
+            ],
+            "aliases": {
+                "MediaUpload": "DesDim\\MediaUpload\\MediaUploadFacade"
+            }
+        }
+    }
+}
