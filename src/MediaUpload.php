@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Storage;
 
 class MediaUpload implements MediaUploadContract
 {
+    public array $options;
     protected Request $request;
     protected UploadedFile $file;
-    public array $options;
 
     /**
      * MediaUpload constructor.
@@ -31,24 +31,24 @@ class MediaUpload implements MediaUploadContract
     /**
      * @return void
      */
-    public function store(): void
-    {
-        if ($this->options['driver'] == 'local') {
-            // Save the image to the local storage/public/images folder
-            $this->file->move(public_path($this->options['path']), $this->options['imageName']);
-        }elseif ($this->options['driver'] == 's3'){
-            $filePath = 'images/user/' . $this->options['imageName'];
-            Storage::disk('s3')->put($filePath, file_get_contents($this->file));
-        }
-    }
-
-    /**
-     * @return void
-     */
     public function validate(): void
     {
         $this->request->validate([
             'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:512',
         ]);
+    }
+
+    /**
+     * @return void
+     */
+    public function store(): void
+    {
+        if ($this->options['driver'] == 'local') {
+            // Save the image to the local storage/public/images folder
+            $this->file->move(public_path($this->options['path']), $this->options['imageName']);
+        } elseif ($this->options['driver'] == 's3') {
+            $filePath = $this->options['folder'] . $this->options['imageName'];
+            Storage::disk('s3')->put($filePath, file_get_contents($this->file));
+        }
     }
 }

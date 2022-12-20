@@ -21,7 +21,7 @@ class MediaUploadServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('media-upload.php'),
+                __DIR__ . '/../config/config.php' => config_path('media-upload.php'),
             ], 'config');
 
             // Publishing the views.
@@ -50,7 +50,7 @@ class MediaUploadServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'media-upload');
+        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'media-upload');
 
         // Register the main class to use with the facade
         $this->app->singleton('media-upload', function () {
